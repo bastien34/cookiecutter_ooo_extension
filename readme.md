@@ -21,7 +21,7 @@ First, get Cookiecutter. Trust me, it's awesome:
 
 Now run it against this repo::
 
-    $ cookiecutter git@github.com:bastien34/extension_feat_options.git
+    $ cookiecutter git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 You'll be prompted for some values. Provide them, then a base project will be created for you.
 
@@ -29,7 +29,7 @@ You'll be prompted for some values. Provide them, then a base project will be cr
 
 **Replay project generation** without being prompted on the command line:
 
-    $ cookiecutter --replay git@github.com:bastien34/extension_feat_options.git
+    $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 ## Todo's
 - Post_gen_project.py !!! To create the final extension
