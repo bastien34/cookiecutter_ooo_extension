@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extension files were created by Extension Compiler - version 2.1.2 -->
+<description xmlns="http://openoffice.org/extensions/description/2006"
+ xmlns:dep="http://openoffice.org/extensions/description/2006"
+ xmlns:l="http://libreoffice.org/extensions/description/2011"
+ xmlns:xlink="http://www.w3.org/1999/xlink" >
+   <identifier value="{{cookiecutter.package_name}}" />
+   <version value="{{cookiecutter.extension_version}}" />
+   <extension-description>
+      <src xlink:href="Descriptions/descr-fr.txt" lang="fr"/>
+      <src xlink:href="Descriptions/descr-en.txt" lang="en"/>
+   </extension-description>
+   <platform value="all" />
+   <icon>
+      <default xlink:href="images/{{cookiecutter.image_name}}" />
+   </icon>
+   <update-information>
+      <src xlink:href="{{cookiecutter.update_url}}" />
+   </update-information>
+   <dependencies>
+      <l:LibreOffice-minimal-version value="3.5" dep:name="LibreOffice 3.5 minimum, or more recent" />
+   </dependencies>
+   <display-name>
+      <name lang="fr">{{cookiecutter.company_name}} - {{cookiecutter.extension_name}}</name>
+   </display-name>
+   <publisher>
+      <name lang="fr" xlink:href="{{cookiecutter.publisher_url}}/">{{cookiecutter.publisher_name}}</name>
+   </publisher>
+   <release-notes>
+      <src lang="fr" xlink:href="{{cookiecutter.release_note_url}}"/>
+   </release-notes>
+</description>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE manifest:manifest PUBLIC "-//OpenOffice.org//DTD Manifest 1.0//EN" "Manifest.dtd">
+<manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.framework-script" 
+      manifest:full-path="python/" />
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" 
+      manifest:full-path="config/{{cookiecutter.extension_name}}_dialog.xcu" />
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-schema" 
+      manifest:full-path="config/{{cookiecutter.extension_name}}_config.xcs" />
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-components" 
+      manifest:full-path="config/{{cookiecutter.extension_name}}_options.components" />
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" 
+      manifest:full-path="AddonUI.xcu" />
+   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" 
+      manifest:full-path="WindowState/tbWriter.xcu" />
+</manifest:manifest>

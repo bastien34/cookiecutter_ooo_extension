@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<components xmlns="http://openoffice.org/2010/uno-components">
+    <component loader="com.sun.star.loader.Python"
+               uri="../python/{{cookiecutter.extension_name}}_dialog_handler.py">
+        <implementation name="{{cookiecutter.package_name}}.IM">
+            <service name="{{cookiecutter.package_name}}.service"/>
+        </implementation>
+    </component>
+</components>
