@@ -32,8 +32,6 @@ You'll be prompted for some values. Provide them, then a base project will be cr
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 ## Todo's
-- Post_gen_project.py !!! To create the final extension
-
 - Understand finely variables rules.
 
 - check whether you can merge multiple extensions on an existing node.
