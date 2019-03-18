@@ -25,8 +25,6 @@ Now run it against this repo::
 
 You'll be prompted for some values. Provide them, then a base project will be created for you.
 
-**Warning**: After this point, change to your personal values.
-
 **Replay project generation** without being prompted on the command line:
 
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
