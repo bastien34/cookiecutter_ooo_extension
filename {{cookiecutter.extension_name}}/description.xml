@@ -24,7 +24,7 @@
       <name lang="fr">{{cookiecutter.company_name}} - {{cookiecutter.extension_name}}</name>
    </display-name>
    <publisher>
-      <name lang="fr" xlink:href="{{cookiecutter.publisher_url}}/">{{cookiecutter.publisher_name}}</name>
+      <name lang="fr" xlink:href="{{cookiecutter.publisher_url}}/">{{cookiecutter.company_name}}</name>
    </publisher>
    <release-notes>
       <src lang="fr" xlink:href="{{cookiecutter.release_note_url}}"/>

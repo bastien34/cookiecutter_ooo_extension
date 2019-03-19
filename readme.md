@@ -55,7 +55,6 @@ would need an Options Dialog.
 |update_url         | pointing to your update.xml file       |
 |release_note_url   | pointing to your release note       |
 |publisher_url      | https://yourwebsite.com             |
-|publisher_name     | Your Company                      |
 |image_name         | logo.png                 |
 
 
