@@ -10,9 +10,9 @@ SERVICE_NAME = "{{cookiecutter.package_name}}.service"
 def create(ctx, *args):
     return options_dialog.create(
         ctx,
-        *args,
         implementation_name=IMPLEMENTATION_NAME,
-        service_name=SERVICE_NAME
+        service_name=SERVICE_NAME,
+        *args
     )
 
 

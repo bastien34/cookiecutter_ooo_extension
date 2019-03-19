@@ -32,7 +32,7 @@ KEYS = ("test_mode",
         )
 
 
-def create(ctx, *args, implementation_name, service_name):
+def create(ctx, implementation_name, service_name, *args):
     global IMPLEMENTATION_NAME
     global SERVICE_NAME
     IMPLEMENTATION_NAME = implementation_name

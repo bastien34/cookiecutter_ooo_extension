@@ -1,5 +1,5 @@
-Creating an OO Extension with Options Dialog in 5 minutes'
-=========================================================
+Creating an OOo Extension with Options Dialog in less 5 than minutes'
+===================================================================
 
 ## Features
 Create a starter boilerplate for an OOo extension including options dialog in 
@@ -30,12 +30,29 @@ You'll be prompted for some values. Provide them, then a base project will be cr
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 ## Todo's
-- Understand finely variables rules.
 
-- check whether you can merge multiple extensions on an existing node.
+### Creating boilerplate from ODT File
+Creating the base extension from  a `.odt` file instead of a `.json`. This document
+could have a table for Toolbar and Menubar menu, for variables that would need an
+Options Dialog.
 
-- create a `.odt` file with a table var, table for addons (search for
-loops with cookiecutter)
+**MenuBar and ToolBar**
+
+| Function name | Function label|Module |Icon |
+| ------------- |:-------------:| :-----:| ---: |
+| extension_launcher |My Extension   | my_extension.py |extension_icon.jpg |
+| feature2_launcher      | Feature 2 | my_extension.py |feature2_icon.jpg|
+| etc. | ...      | ...    |... |
+
+
+**Variables That needs a Dialog Box**
+
+| Var name | Var label | Type |
+| ------------- |:-------------:| -----:| 
+| test_mode |Test mode   | boolean |
+| token      | Token | string |
+| url      | Url | string |
+
 
 
 ## Definitions from the specification document

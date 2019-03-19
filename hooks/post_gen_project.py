@@ -25,6 +25,7 @@ def zip_files():
 
 
 zip_files()
+cp_mo_file()
 
 # zip - 9 - r - n
 # pyc - o.. / files / toto.oxt
