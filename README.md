@@ -1,13 +1,13 @@
-Creating an OOo Extension with Options Dialog in only 1 minute
-==============================================================
+OOo Extension with Options Dialog in 1 minute only
+==================================================
 
 ## Features
 Create a starter boilerplate for an OOo extension including options dialog in 
-less than 1 minutes.
+1 minute.
 
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
-Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
+Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
 
 ## Usage
 Let's pretend you want to create an extension including options feature called 
@@ -24,43 +24,52 @@ Now run it against this repo::
     $ cookiecutter git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 You'll be prompted for some values. Provide them, then a base project will be 
-created for you.
-
-**Replay project generation** without being prompted on the command line:
+created for you. You can **replay the project generation** without being prompted 
+on the command line. Use the `--replay` option:
 
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
-**Warning!** It's better to install your extension from the extension manager 
-instead of double-clicking directly on it.
+**Warning!** Depending on your OOo version, installing by double clicking on the
+extension file can bug. Install it from the extension manager!
+
+### General Vars
+|Keys               | Default values                      | Note         |
+| ---               | ---                                 |---              |
+|extension_name     | my_extension                        |No blank space
+|extension_label    | My extension                        |Displayed in menu
+|extension_version  | 0.0.1                               |
+|package_name       | com.mycompany.myextension           |Identifier, see below the schema to assure uniqueness
+|leaf_label         | Settings                            |Displayed as node's leaf
+|leaf_id            | settings                            |Unique ID for your leaf
+|node               | node1                               |Let it as it is
+|company_name       | Your Company                        |
+|author_name        | Your Name                           |
+|author_email       | your_mail@provider.com              |
+|update_url         | pointing to your update.xml file    |URL
+|release_note_url   | pointing to your release note       |URL
+|publisher_url      | https://yourwebsite.com             |URL
+|image_name         | logo.png                            |PNG or JPG, 42x42 pixels
+
+
+## What you gonna have!
+The result will be 2 dirs. One named "your_extension" will contains src project. 
+You'll start writing your code in it.
+
+The second dir `oxt` contains the extension, that you can test and install.
+
+For now, you'll have as an exemple options dialog for few settings (url, token,
+path). These are let as example.
+
 
 ## TODO'S
 
 ### Create boilerplate from ODT File
-We should create the base extension from  a `.odt` file instead of a `.json`. This
-document could have a table for Toolbar and Menubar menu, for variables that 
-would need an Options Dialog.
+Tris processe could start from a python macro embedded in a `.odt` file.
 
-**General Vars**
+This file should contain more detailed values used to create a more complete project. 
+First table would contain general vars (keys / values seen above). 
 
-|Keys               | Default values                |
-| ---               | ---                           |
-|extension_name     | my_extension                  |
-|extension_label    | My extension                  |
-|extension_version  | 0.0.1                         |
-|package_name       | com.mycompany.myextension     |
-|leaves             | com.mycompany.myextension     |
-|leaf_label         | Leaf 1       |
-|leaf_id            | leaf_id       |
-|node               | node1        |
-|company_name       | Your Company        |
-|author_name        | Your Name                |
-|author_email       | your_mail@provider.com       |
-|update_url         | pointing to your update.xml file       |
-|release_note_url   | pointing to your release note       |
-|publisher_url      | https://yourwebsite.com             |
-|image_name         | logo.png                 |
-
-
+The second table would contain table for Toolbar and Menubar creation as following.
 
 **MenuBar and ToolBar**
 
@@ -70,16 +79,25 @@ would need an Options Dialog.
 | feature2_launcher      | Feature 2 | my_extension.py |feature2_icon.jpg|
 | etc. | ...      | ...    |... |
 
+And of course, a table to generate the `.xcs ` file containing options we want
+for our Options dialog.
 
 **Variables that need a Dialog Box**
 
-| Var name | Var label | Type |
-| ------------- |:-------------:| -----:| 
-| test_mode |Test mode   | boolean |
-| token      | Token | string |
-| url      | Url | string |
+| Var name | Var label | Type | Default value
+| ------------- |:-------------:|:-----:| :---:
+| test_mode |Test mode   | boolean | true
+| token      | Token | string | find a valid token
+| url      | Url | string | https://my_webservice.com/
 
+These tables would help generate during these files:
 
+- AddonUI.xcu (Menubar & Toolbar description)
+
+- _config.xcs (vars in Options dialog)
+
+It should be done before the extension generation. See `hooks/pre_gen_project.py`.
+It's made for that.
 
 
 ## Definitions from the specification document
