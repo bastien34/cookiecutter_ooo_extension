@@ -53,7 +53,7 @@ would need an Options Dialog.
 |leaf_label         | Leaf 1       |
 |node               | node1        |
 |company_name       | Your Company        |
-|author_name        | You Name                |
+|author_name        | Your Name                |
 |author_email       | your_mail@provider.com       |
 |update_url         | pointing to your update.xml file       |
 |release_note_url   | pointing to your release note       |
@@ -71,7 +71,7 @@ would need an Options Dialog.
 | etc. | ...      | ...    |... |
 
 
-**Variables That needs a Dialog Box**
+**Variables that need a Dialog Box**
 
 | Var name | Var label | Type |
 | ------------- |:-------------:| -----:| 
