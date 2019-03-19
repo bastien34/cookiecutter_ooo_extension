@@ -1,5 +1,5 @@
-Creating an OOo Extension with Options Dialog in less 5 than minutes'
-===================================================================
+Creating an OOo Extension with Options Dialog in less than 5 minutes
+====================================================================
 
 ## Features
 Create a starter boilerplate for an OOo extension including options dialog in 
