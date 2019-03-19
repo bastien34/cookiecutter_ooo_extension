@@ -1,9 +1,9 @@
-Creating an OOo Extension with Options Dialog in less than 5 minutes
-====================================================================
+Creating an OOo Extension with Options Dialog in only 1 minute
+==============================================================
 
 ## Features
 Create a starter boilerplate for an OOo extension including options dialog in 
-less than 5 minutes.
+less than 1 minutes.
 
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
