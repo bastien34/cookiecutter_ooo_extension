@@ -49,8 +49,8 @@ would need an Options Dialog.
 |extension_version  | 0.0.1                         |
 |package_name       | com.mycompany.myextension     |
 |leaves             | com.mycompany.myextension     |
-|leaf_id            | leaf_1       |
 |leaf_label         | Leaf 1       |
+|leaf_id            | leaf_id       |
 |node               | node1        |
 |company_name       | Your Company        |
 |author_name        | Your Name                |
@@ -168,10 +168,11 @@ Important vars here are:
 
 - Nodes label: defined as: {{cookiecutter.extension_label}} (e.g.: `My Extension`)
 
-- Leaves name: {{cookiecutter.leaves}} We need to understand why a plural form 
-here. Try to add more than one leaf. For now, we consider it more as a single "leaf".
+- Leaves name: {{cookiecutter.package_name}} After multiple experiment, it seems 
+that it is here the unique identifier as said above: "Every leaf has exactly one 
+Options page and is assigned to exactly one Node and one Dialog".
 
-- Leaves id: {{cookiecutter.leaf_id}} (See Identifier section before)
+- Leaves id: {{cookiecutter.package_name}} (See Identifier section before)
 
 - EventHandler Service: `{{cookiecutter.package_name}}.service`
 

@@ -13,7 +13,7 @@
                 <value>false</value>
             </prop>
             <node oor:name="Leaves">
-                <node oor:name="{{cookiecutter.leaves}}" oor:op="fuse">
+                <node oor:name="{{cookiecutter.package_name}}" oor:op="fuse">
                     <prop oor:name="Label">
                         <value xml:lang="en-US">{{cookiecutter.leaf_label}}</value>
                     </prop>
@@ -21,7 +21,7 @@
                         <value>%origin%/../dialogs/{{cookiecutter.extension_name}}_dialog.xdl</value>
                     </prop>
                     <prop oor:name="Id">
-                        <value>{{cookiecutter.leaf_id}}</value>
+                        <value>{{cookiecutter.package_name}}</value>
                     </prop>
                     <prop oor:name="EventHandlerService">
                         <value>{{cookiecutter.package_name}}.service</value>
