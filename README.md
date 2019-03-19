@@ -52,13 +52,18 @@ extension file can bug. Install it from the extension manager!
 
 
 ## What you gonna have!
-The result will be 2 dirs. One named "your_extension" will contains src project. 
-You'll start writing your code in it.
+The result will be 2 dirs. 
+
+First one named "your_extension" contains the project source.  You'll start 
+writing your code in it.
 
 The second dir `oxt` contains the extension, that you can test and install.
 
-For now, you'll have as an exemple options dialog for few settings (url, token,
-path). These are let as example.
+For now, as an example, we let options dialog for few settings (url, token,
+path), a Menubar and a Toolbar linked to a launcher that open a simple message 
+box.
+
+That's it. Stupid and simple !
 
 
 ## TODO'S
@@ -90,7 +95,7 @@ for our Options dialog.
 | token      | Token | string | find a valid token
 | url      | Url | string | https://my_webservice.com/
 
-These tables would help generate during these files:
+These tables would help generate these files:
 
 - AddonUI.xcu (Menubar & Toolbar description)
 
