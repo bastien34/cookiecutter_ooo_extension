@@ -7,12 +7,12 @@
   "leaf_id": "leaf_1",
   "leaf_label": "Leaf 1",
   "node": "node1",
-  "company_name": "PalaceWeb Development ",
-  "author_name": "Bastien Roques",
+  "company_name": "Your Company ",
+  "author_name": "Your Name",
   "author_email": "your_mail@provider.com",
   "update_url": "pointing to your update.xml file",
   "release_note_url": "pointing to your release note",
-  "publisher_url": "https://palaceweb.fr",
-  "publisher_name": "PalaceDev",
-  "image_name": "logo_carre.png"
+  "publisher_url": "https://yourwebsite.com",
+  "publisher_name": "Your company",
+  "image_name": "logo.png"
 }

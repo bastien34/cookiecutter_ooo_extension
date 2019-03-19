@@ -37,10 +37,33 @@ We should create the base extension from  a `.odt` file instead of a `.json`. Th
 document could have a table for Toolbar and Menubar menu, for variables that 
 would need an Options Dialog.
 
+**General Vars**
+
+|Keys               | Default values                |
+| ---               | ---                           |
+|extension_name     | my_extension                  |
+|extension_label    | My extension                  |
+|extension_version  | 0.0.1                         |
+|package_name       | com.mycompany.myextension     |
+|leaves             | com.mycompany.myextension     |
+|leaf_id            | leaf_1       |
+|leaf_label         | Leaf 1       |
+|node               | node1        |
+|company_name       | Your Company        |
+|author_name        | You Name                |
+|author_email       | your_mail@provider.com       |
+|update_url         | pointing to your update.xml file       |
+|release_note_url   | pointing to your release note       |
+|publisher_url      | https://yourwebsite.com             |
+|publisher_name     | Your Company                      |
+|image_name         | logo.png                 |
+
+
+
 **MenuBar and ToolBar**
 
 | Function name | Function label|Module |Icon |
-| ------------- |:-------------:| :-----:| ---: |
+| ------------- |:--------------:| :-----:| ---: |
 | extension_launcher |My Extension   | my_extension.py |extension_icon.jpg |
 | feature2_launcher      | Feature 2 | my_extension.py |feature2_icon.jpg|
 | etc. | ...      | ...    |... |
