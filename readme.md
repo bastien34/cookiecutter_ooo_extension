@@ -30,6 +30,9 @@ created for you.
 
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
+**Warning!** It's better to install your extension from the extension manager 
+instead of double-clicking directly on it.
+
 ## TODO'S
 
 ### Create boilerplate from ODT File
@@ -75,6 +78,7 @@ would need an Options Dialog.
 | test_mode |Test mode   | boolean |
 | token      | Token | string |
 | url      | Url | string |
+
 
 
 
