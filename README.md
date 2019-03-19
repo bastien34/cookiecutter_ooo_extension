@@ -79,7 +79,7 @@ The second table would contain table for Toolbar and Menubar creation as followi
 **MenuBar and ToolBar**
 
 | Function name | Function label|Module |Icon |
-| ------------- |:--------------:| :-----:| ---: |
+| ------------- |:--------------:| :-----:| --- |
 | extension_launcher |My Extension   | my_extension.py |extension_icon.jpg |
 | feature2_launcher      | Feature 2 | my_extension.py |feature2_icon.jpg|
 | etc. | ...      | ...    |... |
