@@ -12,8 +12,8 @@ Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/De
 ## Usage
 Let's pretend you want to create an extension including options feature called 
 "fantastic_extension". Rather than copying an old project and then editing it 
-  to include your numerous settings among which some of them are always get forgotten
-  until the worst possible moment, get cookiecutter_ to do all the work.
+to include your numerous settings among which some of them are always get 
+forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
 First, get Cookiecutter. Trust me, it's awesome:
 
@@ -23,18 +23,19 @@ Now run it against this repo::
 
     $ cookiecutter git@github.com:bastien34/cookiecutter_ooo_extension.git
 
-You'll be prompted for some values. Provide them, then a base project will be created for you.
+You'll be prompted for some values. Provide them, then a base project will be 
+created for you.
 
 **Replay project generation** without being prompted on the command line:
 
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
-## Todo's
+## TODO'S
 
-### Creating boilerplate from ODT File
-Creating the base extension from  a `.odt` file instead of a `.json`. This document
-could have a table for Toolbar and Menubar menu, for variables that would need an
-Options Dialog.
+### Create boilerplate from ODT File
+We should create the base extension from  a `.odt` file instead of a `.json`. This
+document could have a table for Toolbar and Menubar menu, for variables that 
+would need an Options Dialog.
 
 **MenuBar and ToolBar**
 
@@ -96,7 +97,8 @@ Unicode scalar values (no case folding, no normalization, etc.).
 - name id of the leaf (com.rdt.comp.Bal)
 
 ### Filenames
-You'll find a complete file description here : https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/File_Format
+You'll find a complete file description here : 
+https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/File_Format
 
 #### Options Dialog Window
 This `.xdl` file contains the description of the graphic Windows. We build it 
@@ -135,12 +137,13 @@ The configuration data file gives location for executables, for the dialog box.
 
 Important vars here are:
 
-- Nodes name: defined as: {{cookiecutter.package_name}}.{{cookiecutter.node}}. (e.g.: `com.mycompany.myextension.node1`)
+- Nodes name: defined as: {{cookiecutter.package_name}}.{{cookiecutter.node}}. 
+(e.g.: `com.mycompany.myextension.node1`)
 
 - Nodes label: defined as: {{cookiecutter.extension_label}} (e.g.: `My Extension`)
 
-- Leaves name: {{cookiecutter.leaves}} We need to understand why a plural form here. Try
-to add more than one leaf. For now, we consider it more as a single "leaf".
+- Leaves name: {{cookiecutter.leaves}} We need to understand why a plural form 
+here. Try to add more than one leaf. For now, we consider it more as a single "leaf".
 
 - Leaves id: {{cookiecutter.leaf_id}} (See Identifier section before)
 
@@ -150,7 +153,8 @@ Location: `config/{{cookiecutter.extension_name}}_dialog.xcu`
 
 
 #### Config file: `{{cookiecutter.extension_name}}_options.component`
-This file gives the dialog handler location (seen before) and the implementation name.
+This file gives the dialog handler location (seen before) and the implementation 
+name.
 
 - Implementation name: `{{cookiecutter.package_name}}.IM` 
 
@@ -179,13 +183,14 @@ Location: `python/{{cookiecutter.extension_name}}.py`
 
 - Author email: your email `{{cookiecutter.author_email}}`
 
-- Package name: `{{cookiecutter.package_name}}` as said, **reversed_domainname.company.product.nodename.leafname.**
+- Package name: `{{cookiecutter.package_name}}` as said, **reversed_domainname
+.company.product.nodename.leafname.**
 which can be `com.mycompany.myextension`
 
 - Project version: `{{cookiecutter.extension_version}}` e.g.: "0.0.1"
 
-- Image name: `{{cookiecutter.image_name}}` Images are in `images/` folder. 42x42. eg: `my_image.jpg`
-JPG or PNG can be used.
+- Image name: `{{cookiecutter.image_name}}` Images are in `images/` folder. 
+42x42. eg: `my_image.jpg` JPG or PNG can be used.
 
 - Update URL: `{{cookiecutter.update_url}}` 
 
@@ -203,12 +208,12 @@ For now it links to
 
 
 #### Other vars
-- Project name: It can be your extension name. Should be short, no blank space, as it'll be used
-to create filename.
+- Project name: It can be your extension name. Should be short, no blank space, 
+as it'll be used to create filename.
 
-Using `{{cookiecutter.extension_name}}` in filename is a nice idea to keep thinks distinct and well organized. If 
-you have many extension, each one with a config.xcu, it could be difficult to identify which
-project it belongs to.
+Using `{{cookiecutter.extension_name}}` in filename is a nice idea to keep thinks 
+distinct and well organized. If you have many extension, each one with a 
+config.xcu, it could be difficult to identify which project it belongs to.
 
 - {{cookiecutter.leaf_1}} line 48 in _config.xcs instead of {{cookiecutter.extension_name}}
 
