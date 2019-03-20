@@ -20,6 +20,7 @@ from {{cookiecutter.extension_name}}_utils import (
     getConfigurationAccess,
 )
 
+DIALOG_ID = '{{cookiecutter.extension_name}}_dialog'
 NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.leaf_id}}"
 
 KEYS = ("test_mode",
@@ -143,7 +144,7 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
             self._load_data(dialog, "initialize")
 
     def _save_data(self, dialog):
-        assert dialog.getModel().Name == "RdtBal_settings"  # WTF, not working!
+        assert dialog.getModel().Name == DIALOG_ID
         settings = {}
         for name in self.cfg_names:
             ctrl = dialog.getControl(name)
@@ -154,11 +155,11 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
         self._config_save(settings)
 
     def _load_data(self, dialog, event_name):
-        assert dialog.getModel().Name == "RdtBal_settings"  # Does NOT work !
+        assert dialog.getModel().Name == DIALOG_ID
         for control in dialog.Controls:
             if not control.supportsService("com.sun.star.awt.UnoControlEdit"):
                 model = control.Model
-                model.Label = _(model.Label)  # Does not work
+                model.Label = _(model.Label)
 
         if event_name == 'initialize':
             settings = self._config_reader()

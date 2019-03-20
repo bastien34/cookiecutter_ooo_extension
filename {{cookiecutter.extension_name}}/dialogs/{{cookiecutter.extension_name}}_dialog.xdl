@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dlg:window PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "dialog.dtd">
-<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="RdtBal_settings" dlg:left="106" dlg:top="80" dlg:width="283" dlg:height="214" dlg:closeable="true" dlg:moveable="true" dlg:withtitlebar="false">
+<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="{{cookiecutter.extension_name}}_dialog" dlg:left="106" dlg:top="80" dlg:width="283" dlg:height="214" dlg:closeable="true" dlg:moveable="true" dlg:withtitlebar="false">
  <dlg:bulletinboard>
   <dlg:fixedline dlg:id="fixed_line1" dlg:tab-index="2" dlg:left="5" dlg:top="9" dlg:width="270" dlg:height="12" dlg:value="Production values"/>
   <dlg:fixedline dlg:id="fixed_line2" dlg:tab-index="6" dlg:left="5" dlg:top="105" dlg:width="270" dlg:height="12" dlg:value="Test values"/>
