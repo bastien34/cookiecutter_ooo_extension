@@ -121,15 +121,15 @@ well organized. If you have many extension, each one with has a config.xcu, it
 might be difficult to find straight away which project it belongs to.
 
 
-|Filename               | Note                      | Location         |
-| ---               | ---                                 |---              |
-|{{cookiecutter.extension_name}}_dialog.xdl     | Content of graphic Windows, build using the LibO dialog editor. (290x215 max)|dialogs/{{cookiecutter.extension_name}}_dialog.xdl
+|File     | Note                      | Location         |
+| ---       | ---                                 |---              |
+|dialog.xdl     | Content of graphic Windows, build using the LibO dialog editor. (290x215 max)|dialogs/{{cookiecutter.extension_name}}_dialog.xdl
 |manifest.xml    | Contains appropriate entry for modules, configuration data.      |META-INF/manifest.xml
-|{{cookiecutter.extension_name}}_config.xcs    | Configuration schema of your vars.      |config/{{cookiecutter.extension_name}}_config.xcs
-|{{cookiecutter.extension_name}}_dialog.xcu   | Configuration data file gives location for executables and dialog box.      |config/{{cookiecutter.extension_name}}_dialog.xcu
-|{{cookiecutter.extension_name}}_options.component| Dialog handler location and implementation name | config/{{cookiecutter.extension_name}}_options.component
-|{{cookiecutter.extension_name}}_dialog_handler.py{{cookiecutter.extension_name}}_options.component| Dialog handler file | python/{{cookiecutter.extension_name}}_dialog_handler.py
-|{{cookiecutter.extension_name}}.py| File where you'll start working on your code. Contains a simple launcher. | python/{{cookiecutter.extension_name}}.py
+|config.xcs    | Configuration schema of your vars.      |config/{{cookiecutter.extension_name}}_config.xcs
+|dialog.xcu   | Configuration data file gives location for executables and dialog box.      |config/{{cookiecutter.extension_name}}_dialog.xcu
+|options.component| Dialog handler location and implementation name | config/{{cookiecutter.extension_name}}_options.component
+|dialog_handler.py| Dialog handler file | python/{{cookiecutter.extension_name}}_dialog_handler.py
+|module.py| File where you'll start working on your code. Contains a simple launcher. | python/{{cookiecutter.extension_name}}.py
 |description.xml| Description of your extension. See below. |  description.xml
 |AddonUI.xcu| Toolbars and Menubar. |  AddonUI.xcu
 
