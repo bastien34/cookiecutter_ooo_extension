@@ -29,9 +29,6 @@ on the command line. Use the `--replay` option:
 
     $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
-**Warning!** Depending on your OOo version, installing by double clicking on the
-extension file can bug. Install it from the extension manager!
-
 ### General Vars
 |Keys               | Default values                      | Note         |
 | ---               | ---                                 |---              |
@@ -59,7 +56,13 @@ To generate a new extension, from root directory (`your_extension_name`):
 
     $ ./oxt_gen.py
     
-The brand new extension will be created in `extension/`
+The brand new extension will be created in `extension/`. To install it:
+
+    $ unopkg add extension/<your_extension.oxt>
+    
+To remove it:
+
+    $ unopkg remove <your_extension.oxt>
 
 **Warning:** For now, as an example, we let options dialog for few settings (url, 
 token, path), a Menubar and a Toolbar linked to a launcher that open a simple 
