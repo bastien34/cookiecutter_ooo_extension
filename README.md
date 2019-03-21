@@ -52,64 +52,59 @@ extension file can bug. Install it from the extension manager!
 
 
 ## What you gonna have
-The result will be 2 dirs. 
+The result will be 2 dirs (`src/` and `extension`) and an executable that serves 
+you to generate from source a new extension each time you'll need it. 
 
-First one named "your_extension" contains the project source.  You'll start 
-writing your code in it.
+To generate a new extension, from root directory (`your_extension_name`):
 
-The second dir `oxt` contains the extension, that you can test and install.
+    $ ./oxt_gen.py
+    
+The brand new extension will be created in `extension/`
 
-For now, as an example, we let options dialog for few settings (url, token,
-path), a Menubar and a Toolbar linked to a launcher that open a simple message 
-box.
+**Warning:** For now, as an example, we let options dialog for few settings (url, 
+token, path), a Menubar and a Toolbar linked to a launcher that open a simple 
+message box.
 
 That's it. Stupid and simple !
 
 #### Treeview of the project source
 
 ```
-├── {{cookiecutter.extension_name}}
-│   ├── AddonUI.xcu
-│   ├── config
-│   │   ├── {{cookiecutter.extension_name}}_config.xcs
-│   │   ├── {{cookiecutter.extension_name}}_dialog.xcu
-│   │   └── {{cookiecutter.extension_name}}_options.components
-│   ├── Descriptions
-│   │   ├── descr-en.txt
-│   │   ├── descr-fr-FR.txt
-│   │   └── descr-fr.txt
-│   ├── description.xml
-│   ├── dialogs
-│   │   └── {{cookiecutter.extension_name}}_dialog.xdl
-│   ├── icons
-│   │   ├── bal_16.png
-│   │   └── excel_16.png
-│   ├── images
-│   │   └── logo.png
-│   ├── META-INF
-│   │   └── manifest.xml
-│   ├── python
-│   │   ├── {{cookiecutter.extension_name}}_dialog_handler.py
-│   │   ├── {{cookiecutter.extension_name}}.py
-│   │   └── pythonpath
-│   │       ├── {{cookiecutter.extension_name}}
-│   │       │   └── options_dialog.py
-│   │       ├── {{cookiecutter.extension_name}}_utils.py
-│   │       └── locales
-│   │           └── fr_FR
-│   │               └── LC_MESSAGES
-│   │                   ├── messages.mo
-│   │                   └── messages.po
-│   └── WindowState
-│       └── tbWriter.xcu
-├── cookiecutter.json
-├── hooks
-│   ├── createOXT.py
-│   ├── post_gen_project.py
-│   └── pre_gen_project.py
-├── LICENSE
-└── README.md
-
+├── AddonUI.xcu
+├── config
+│   ├── {{cookiecutter.extension_name}}_config.xcs
+│   ├── {{cookiecutter.extension_name}}_dialog.xcu
+│   └── {{cookiecutter.extension_name}}_options.components
+├── Descriptions
+│   ├── descr-en.txt
+│   ├── descr-fr-FR.txt
+│   └── descr-fr.txt
+├── description.xml
+├── dialogs
+│   └── {{cookiecutter.extension_name}}_dialog.xdl
+├── icons
+│   ├── bal_16.png
+│   └── excel_16.png
+├── images
+│   └── logo.png
+├── META-INF
+│   └── manifest.xml
+├── oxt_gen.py
+├── python
+│   ├── {{cookiecutter.extension_name}}_dialog_handler.py
+│   ├── {{cookiecutter.extension_name}}.py
+│   └── pythonpath
+│       ├── {{cookiecutter.extension_name}}
+│       │   ├── options_dialog.py
+│       │   └── __pycache__
+│       ├── {{cookiecutter.extension_name}}_utils.py
+│       └── locales
+│           └── fr_FR
+│               └── LC_MESSAGES
+│                   ├── messages.mo
+│                   └── messages.po
+└── WindowState
+    └── tbWriter.xcu
 ```
 
 ### Filenames coding
