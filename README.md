@@ -12,7 +12,7 @@ Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/D
 ## Usage
 Let's pretend you want to create an extension including options feature called 
 "fantastic_extension". Rather than copying an old project and then editing it 
-to include your numerous settings among which some of them are always get 
+to include your numerous settings among which some of them always get 
 forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
 First, get Cookiecutter. Trust me, it's awesome!
@@ -116,8 +116,8 @@ That's it. Stupid and simple !
 You'll find a file description here: 
 https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/File_Format
 
-We use `{{cookiecutter.extension_name}}` in filename to keep thinks distinct and 
-well organized. If you have many extension, each one with has a config.xcu, it 
+We use `{{cookiecutter.extension_name}}` in filename to keep things distinct and 
+well organized. If you have many extensions, each one with a config.xcu, it 
 might be difficult to find straight away which project it belongs to.
 
 
@@ -235,7 +235,7 @@ Then you can delete the 'potfiles'.
 ## TODO'S
 
 ### Create boilerplate from ODT File
-Tris processe could start from a python macro embedded in a `.odt` file.
+This process could start from a python macro embedded in a `.odt` file.
 
 This file should contain more detailed values used to create a more complete project. 
 First table would contain general vars (keys / values seen above). 
