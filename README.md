@@ -229,6 +229,23 @@ We used 'xgettext' to generate our template as following:
 
 Then you can delete the 'potfiles'.
 
+### .po file from .xml files
+
+Create a file `rule.its` with this content. See [this](https://stackoverflow.com/questions/55270068/its-rule-to-translate-a-xml-attribute-using-namespace/55275811#55275811)
+to understand why you need to declare the namespace in it.
+
+    <?xml version="1.0"?>
+    <its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0" 
+               xmlns:dlg="http://openoffice.org/2000/dialog">
+      <its:translateRule selector="//dlg:text/@dlg:value" translate="yes"/>
+    </its:rules>
+
+Then generate the `.po` file using `itstool`.
+
+    $  itstool -o message_from_dialog.po -i rule.its dialogs/dialog.xdl
+    
+You'll have to merge them to existent message.po.
+
 
 ## TODO'S
 
