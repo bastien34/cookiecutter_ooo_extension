@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<oor:component-data oor:name="OptionsDialog" oor:package="org.openoffice.Office"
+                    xmlns:oor="http://openoffice.org/2001/registry">
+    <node oor:name="Nodes">
+        <node oor:name="com.pwd.myextension.Node1" oor:op="fuse">
+            <prop oor:name="Label">
+                <value xml:lang="en-US">Extensions Example</value>
+            </prop>
+            <prop oor:name="AllModules">
+                <value>false</value>
+            </prop>
+            <node oor:name="Leaves">
+                <node oor:name="com.pwd.myextension" oor:op="fuse">
+                    <prop oor:name="Label">
+                        <value xml:lang="en-US">Maximum Paper Size</value>
+                    </prop>
+                    <prop oor:name="Id">
+                        <value>com.pwd.myextension</value>
+                    </prop>
+                    <prop oor:name="OptionsPage">
+                        <value>%origin%/dialogs/optionsdialog.xdl</value>
+                    </prop>
+                    <prop oor:name="EventHandlerService">
+                        <value>com.pwd.myextension</value>
+                    </prop>
+                </node>
+            </node>
+        </node>
+    </node>
+</oor:component-data>
