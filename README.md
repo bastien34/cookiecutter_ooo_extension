@@ -35,8 +35,7 @@ on the command line. Use the `--replay` option:
 |extension_name     | my_extension                        |No blank space
 |extension_label    | My extension                        |Displayed in menu
 |extension_version  | 0.0.1                               |
-|package_name       | com.mycompany.myextension           |Identifier, see below the schema to assure uniqueness
-|leaf_label         | Settings                            |Displayed as node's leaf
+|package_name       | com.mycompany.my_extension          |Identifier, see below the schema to assure uniqueness
 |company_name       | Your Company                        |
 |author_name        | Your Name                           |
 |author_email       | your_mail@provider.com              |
