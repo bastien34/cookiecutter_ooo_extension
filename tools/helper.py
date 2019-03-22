@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import xml.etree.ElementTree as ET
+from _elementtree import Element
 
 
 class Elem(ET.Element):
@@ -28,7 +29,7 @@ class Elem(ET.Element):
         self.text = txt
 
 
-class ElemProp(Elem):
+class ElemProp(Element):
     def __init__(self, name, txt):
         super().__init__("prop", {'oor:name': name})
         self.append(Elem("value", text=txt))
