@@ -211,7 +211,7 @@ which can be `com.mycompany.myextension`
 
 
 #### AddonUI.xcu
-File that contains every think to create toolbars and Menubar. 
+File that contains everything to create toolbars and Menubar. 
 
 
 ## Localization
