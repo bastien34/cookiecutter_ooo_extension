@@ -5,9 +5,9 @@
                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <node oor:name="Nodes">
-        <node oor:name="{{cookiecutter.package_name}}.{{cookiecutter.node}}" oor:op="fuse">
+        <node oor:name="{{cookiecutter.package_name}}.Node1" oor:op="fuse">
             <prop oor:name="Label">
-                <value xml:lang="en-US">{{cookiecutter.extension_label}}</value>
+                <value xml:lang="en-US">{{cookiecutter.company_name}}</value>
             </prop>
             <prop oor:name="AllModules">
                 <value>false</value>
@@ -15,7 +15,7 @@
             <node oor:name="Leaves">
                 <node oor:name="{{cookiecutter.package_name}}" oor:op="fuse">
                     <prop oor:name="Label">
-                        <value xml:lang="en-US">{{cookiecutter.leaf_label}}</value>
+                        <value xml:lang="en-US">{{cookiecutter.extension_label}}</value>
                     </prop>
                     <prop oor:name="OptionsPage">
                         <value>%origin%/../dialogs/{{cookiecutter.extension_name}}_dialog.xdl</value>
@@ -33,7 +33,7 @@
     <node oor:name="Modules">
         <node oor:name="com.sun.star.text.TextDocument" oor:op="fuse">
             <node oor:name="Nodes">
-                <node oor:name="{{cookiecutter.package_name}}.{{cookiecutter.node}}" oor:op="fuse"/>
+                <node oor:name="{{cookiecutter.package_name}}.Node1" oor:op="fuse"/>
             </node>
         </node>
     </node>

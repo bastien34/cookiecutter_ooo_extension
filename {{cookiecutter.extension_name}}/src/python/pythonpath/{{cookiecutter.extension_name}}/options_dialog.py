@@ -21,7 +21,7 @@ from {{cookiecutter.extension_name}}_utils import (
 )
 
 DIALOG_ID = '{{cookiecutter.extension_name}}_dialog'
-NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.leaf_id}}"
+NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.extension_name}}"
 
 KEYS = ("test_mode",
         "token",

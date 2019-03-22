@@ -37,8 +37,6 @@ on the command line. Use the `--replay` option:
 |extension_version  | 0.0.1                               |
 |package_name       | com.mycompany.myextension           |Identifier, see below the schema to assure uniqueness
 |leaf_label         | Settings                            |Displayed as node's leaf
-|leaf_id            | settings                            |Unique ID for your leaf
-|node               | node1                               |Let it as it is
 |company_name       | Your Company                        |
 |author_name        | Your Name                           |
 |author_email       | your_mail@provider.com              |
@@ -160,7 +158,7 @@ The configuration data file gives location for executables, for the dialog box.
 
 Contains:
 
-- Nodes name: defined as: {{cookiecutter.package_name}}.{{cookiecutter.node}}. 
+- Nodes name: defined as: {{cookiecutter.package_name}}.Node1. 
 (e.g.: `com.mycompany.myextension.node1`)
 
 - Nodes label: defined as: {{cookiecutter.extension_label}} (e.g.: `My Extension`)

@@ -10,7 +10,7 @@
                <value/>
             </prop>
             <prop oor:name="Title" oor:type="xs:string">
-               <value xml:lang="fr">{{cookiecutter.extension_label}}</value>
+               <value xml:lang="fr">{{cookiecutter.company_name}}</value>
             </prop>
             <node oor:name="Submenu">
                <node oor:name="N001" oor:op="replace">

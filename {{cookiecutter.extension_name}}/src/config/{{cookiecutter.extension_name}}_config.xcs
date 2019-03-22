@@ -45,7 +45,7 @@
     </templates>
     <component>
         <group oor:name="Leaves">
-            <node-ref oor:name="{{cookiecutter.leaf_id}}" oor:node-type="Production"/>
+            <node-ref oor:name="{{cookiecutter.extension_name}}" oor:node-type="Production"/>
         </group>
     </component>
 </oor:component-schema>
