@@ -5,14 +5,14 @@ import logging
 import xml.etree.ElementTree as ET
 from _elementtree import Element
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("create_addon_ui")
-
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 extension_id = "com.pwd.myextension"
 package_name = "{{cookiecutter.package_name}}"
-xml_file = "DEV_AddonUI.xcu"
+xml_file = "AddonUI.xcu"  # To be adjusted in the right location
 locale = {"xml:lang": "fr"}
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger("Now, it's time to create the %s file!" % xml_file)
 
 
 class Function:
