@@ -7,70 +7,105 @@ from _elementtree import Element
 
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger('create_addon_ui')
+logger = logging.getLogger("create_addon_ui")
 
-extension_id = 'com.pwd.myextension'
-package_name = '{{cookiecutter.package_name}}'
-xml_file = 'DEV_AddonUI.xcu'
+extension_id = "com.pwd.myextension"
+package_name = "{{cookiecutter.package_name}}"
+xml_file = "DEV_AddonUI.xcu"
+locale = {"xml:lang": "fr"}
 
 # my_func will contain data from odt file about commands to add in menu
-my_func = ['{{cookiecutter.extension_label}}', 'tatar']
+my_func = ["{{cookiecutter.extension_label}}"]
 
 
-def value_element(parent, text='', attrib={}):
-    el = ET.SubElement(parent, 'value', attrib)
-    el.text = text
-    return el
-
-
-def prop_element(parent, name, text='', locale=False):
+class PropElement(Element):
     """
-    Generate a <prop> node. If locale==True, then value added
-    has a locale parameter: lang:"fr"
+    In AddonUI.xcu, a <prop> element has always an attrib `oor:type` and
+    `oor:name and a <value> as child element.
+    If a text is given, it will contained in <value> element.
+    If loc then a dict attrib is appended to <value> element:
+        {"xml:lang": "fr"}
     """
-    attrib = {'oor:type': 'xs:string', 'name': name}
-    el = ET.SubElement(parent, 'prop', attrib)
-    if locale:
-        return value_element(el, text, {'oor:lang': 'fr'})
-    else:
-        return value_element(el, text)
+    def __init__(self, name, text="", loc=False):
+        tag = "prop"
+        attrib = {"oor:type": "xs:string", "oor:name": name}
+        self.locale = {}
+        super().__init__(tag, attrib)
+        if loc:
+            self.locale = locale
+        value = ET.SubElement(self, "value", self.locale)
+        value.text = text
 
 
-class _MenuEntry(Element):
-    """Menu entry. Element with nested <prop>"""
+class MenuEntry(Element):
+    """
+    Menu entry. Element with nested <prop>. Both Toolbar and Menubar
+    use it.
+    """
     def __init__(self, i, function_label):
         tag = "node"
-        attrib = {"oor:name": "N00%s" % i, "oor:op": "replace"}
+        name = self.format_name(i)
+        attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.context = self._get_prop('Context',
-                                      "com.sun.star.text.TextDocument")
-        self.title = self._get_prop('Title', function_label, locale=True)
-        macro_url = 'vnd.sun.star.script:{{cookiecutter.extension_name}}-' \
-                    '{{cookiecutter.extension_version}}.oxt|python|{{cookiecu' \
-                    'tter.extension_name}}.py${{cookiecutter.extension_name}}' \
-                    '_launcher?language=Python&amp;location=user:uno_packages'
-        self.url = self._get_prop('URL', macro_url)
-        self.target = self._get_prop('Target', '_self')
+        self.append(PropElement("Context", "com.sun.star.text.TextDocument"))
+        self.append(PropElement("Title", function_label, loc=True))
+        macro_url = """vnd.sun.star.script:{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt|python|{{cookiecutter.extension_name}}.py${{cookiecutter.extension_name}}_launcher?language=Python&amp;location=user:uno_packages"""
+        self.append(PropElement("URL", macro_url))
+        self.append(PropElement("Target", "_self"))
 
-    def _get_prop(self, name, text, locale=False):
-        logger.info('Creation of prop %s' % name)
-        return prop_element(self, name, text, locale)
+    @staticmethod
+    def format_name(i):
+        return "N00%s" % i
 
 
-class SubMenuEntry(Element):
+class MenuBar(Element):
+    """
+    Build the Menubar for all functions listed in my_func.
+    """
     def __init__(self):
-        attrib = {'name': "{{cookiecutter.package_name}}",
+        attrib = {"oor:name": "{{cookiecutter.package_name}}",
                   "oor:op": "replace"}
-        node = 'node'
+        node = "node"
         super().__init__(node, attrib)
-        prop_element(self, 'Context')
-        prop_element(self, 'Title', '{{cookiecutter.company_name}}',
-                     locale=True)
-        submenu = ET.SubElement(self, 'node', {'oor:name': 'Submenu'})
+        self.append(PropElement("Context"))
+        self.append(PropElement("Title", "{{cookiecutter.company_name}}",
+                                loc=True))
+        submenu = ET.SubElement(self, "node", {"oor:name": "Submenu"})
+        for i, func in enumerate(my_func, start=1):
+            submenu.append(MenuEntry(i=i, function_label=func))
+
+
+class ToolBar(Element):
+    """
+    Build the Toolbar for all functions listed my_func.
+    """
+    def __init__(self):
+        attrib = {"oor:name": "{{cookiecutter.package_name}}.TB1",
+                  "oor:op": "replace"}
+        node = "node"
+        super().__init__(node, attrib)
 
         for i, func in enumerate(my_func, start=1):
-            sm = _MenuEntry(i=i, function_label=func)
-            submenu.append(sm)
+            entry = MenuEntry(i=i, function_label=func)
+            self.append(entry)
+
+
+class Image(Element):
+    """
+    A class to hold icons used in toolbar.
+    """
+    def __init__(self, i):
+        tag = "node"
+        name = "{{cookiecutter.package_name}}.%s" % MenuEntry.format_name(i)
+        attrib = {"oor:name": name, "oor:op": "replace"}
+        super().__init__(tag, attrib)
+        val = "vnd.sun.star.script:{{cookiecutter.extension_name}}-{{cookiec" \
+              "utter.extension_version}}.oxt|python|{{cookiecutter.extension" \
+              "_name}}.py${{cookiecutter.extension_name}}_launcher?language=" \
+              "Python&amp;location=user:uno_packages"
+        self.append(PropElement("URL", val))
+        nod = ET.SubElement(self, "node", {"oor:name": "UserDefinedImages"})
+        nod.append(PropElement("ImageSmallURL", "%origin%/icons/bal_16.png"))
 
 
 def create_addon():
@@ -78,26 +113,30 @@ def create_addon():
     Creation of OptionsDialog.xcu
     """
     path = os.path.dirname(os.path.realpath(__file__))
-    logger.info('Creating xcu in: %s' % path)
+    logger.info("Creating xcu in: %s" % path)
 
-    with open(xml_file, "w", encoding="utf-8") as f:
-        root = Element("oor:component-data",
-                       {"oor:name": "Addons",
-                        "oor:package": "org.openoffice.Office",
-                        "xmlns:oor": "http://openoffice.org/2001/registry",
-                        "xmlns:xs": "http://www.w3.org/2001/XMLSchema"})
-        addon_ui = ET.SubElement(root, "node", {'oor:name': "AddonUI"})
-        menubar = ET.SubElement(addon_ui, "node", {'oor:name': "OfficeMenuBar"})
-        menubar.append(SubMenuEntry())
+    root = Element("oor:component-data",
+                   {"xmlns:oor": "http://openoffice.org/2001/registry",
+                    "xmlns:xs": "http://www.w3.org/2001/XMLSchema",
+                    "oor:name": "Addons",
+                    "oor:package": "org.openoffice.Office"})
 
-        toolbar = ET.SubElement(addon_ui, "node", {'oor:name': "OfficeToolBar"})
-        images = ET.SubElement(addon_ui, "node", {'oor:name': "Images"})
+    with open(xml_file, "w", encoding="UTF-8") as f:
+        addon_ui = ET.SubElement(root, "node", {"oor:name": "AddonUI"})
 
+        menubar = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeMenuBar"})
+        menubar.append(MenuBar())
+
+        toolbar = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeToolBar"})
+        toolbar.append(ToolBar())
+
+        images = ET.SubElement(addon_ui, "node", {"oor:name": "Images"})
+        for i, func in enumerate(my_func, start=1):
+            images.append(Image(i=i))
 
         tree = ET.ElementTree(root)
         tree.write(f.name, "utf-8", True)
-
-    logger.info('%s has been created. Thanks for support !' % xml_file)
+    logger.info("%s has been created. Thanks for support !" % xml_file)
 
 
 if __name__ == "__main__":
