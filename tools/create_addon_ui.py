@@ -4,12 +4,13 @@ import os
 import logging
 import xml.etree.ElementTree as ET
 from _elementtree import Element
+from helper import (ElemPropStr,
+                    ElemPropLoc)
 
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 extension_id = "com.pwd.myextension"
-package_name = "{{cookiecutter.package_name}}"
+package_name = "{{cookiecutter.extension_name}}"
 xml_file = "AddonUI.xcu"  # To be adjusted in the right location
-locale = {"xml:lang": "fr"}
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("Now, it's time to create the %s file!" % xml_file)
@@ -36,31 +37,13 @@ class Function:
 
 
 # Test values: these data should be collected from odt file.
-func1 = Function('send_mail', 'Send Mail', 'send_mail_ico.png')
+func1 = Function('{{cookiecutter.extension_name}}_launcher',
+                 '{{cookiecutter.extension_label}}',
+                 'bal_16.png')
 func2 = Function('send_letter', 'Send Nice Letter', 'send_letter.png')
 
 # my_func will contain data from odt file about commands to add in menu
-my_func = [func1, func2]
-
-
-class PropElement(Element):
-    """
-    In AddonUI.xcu, a <prop> element has always an attrib `oor:type` and
-    `oor:name and a <value> as child element.
-    If a text is given, it will contained in <value> element.
-    If loc then a dict attrib is appended to <value> element:
-        {"xml:lang": "fr"}
-    """
-
-    def __init__(self, name, text="", loc=False):
-        tag = "prop"
-        attrib = {"oor:type": "xs:string", "oor:name": name}
-        self.locale = {}
-        super().__init__(tag, attrib)
-        if loc:
-            self.locale = locale
-        value = ET.SubElement(self, "value", self.locale)
-        value.text = text
+my_func = [func1, ]
 
 
 class MenuEntry(Element):
@@ -74,10 +57,11 @@ class MenuEntry(Element):
         name = self.format_name(i)
         attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.append(PropElement("Context", "com.sun.star.text.TextDocument"))
-        self.append(PropElement("Title", func.label, loc=True))
-        self.append(PropElement("URL", func.location))
-        self.append(PropElement("Target", "_self"))
+        self.append(ElemPropStr("Context", "com.sun.star.text.TextDocument"))
+        self.append(ElemPropLoc("Title", {'fr': func.label},
+                                {'oor:type': 'xs:string'}))
+        self.append(ElemPropStr("URL", func.location))
+        self.append(ElemPropStr("Target", "_self"))
 
     @staticmethod
     def format_name(i):
@@ -94,9 +78,10 @@ class MenuBar(Element):
                   "oor:op": "replace"}
         node = "node"
         super().__init__(node, attrib)
-        self.append(PropElement("Context"))
-        self.append(PropElement("Title", "{{cookiecutter.company_name}}",
-                                loc=True))
+        self.append(ElemPropStr("Context"))
+        self.append(ElemPropLoc("Title",
+                                {'fr': "{{cookiecutter.company_name}}"},
+                                {'oor:type': 'xs:string'}))
         submenu = ET.SubElement(self, "node", {"oor:name": "Submenu"})
         for i, func in enumerate(my_func, start=1):
             submenu.append(MenuEntry(i, func))
@@ -127,10 +112,10 @@ class Image(Element):
         name = "{{cookiecutter.package_name}}.%s" % MenuEntry.format_name(i)
         attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.append(PropElement("URL", func.location))
+        self.append(ElemPropStr("URL", func.location))
         nod = ET.SubElement(self, "node", {"oor:name": "UserDefinedImages"})
         icon_location = "%origin%/icons/{}".format(func.icon)
-        nod.append(PropElement("ImageSmallURL", icon_location))
+        nod.append(ElemPropStr("ImageSmallURL", icon_location))
 
 
 def create_addon():
@@ -163,6 +148,7 @@ def create_addon():
 
         tree = ET.ElementTree(root)
         tree.write(f.name, "utf-8", True)
+
     logger.info("%s has been created. Thanks for support !" % xml_file)
 
 
