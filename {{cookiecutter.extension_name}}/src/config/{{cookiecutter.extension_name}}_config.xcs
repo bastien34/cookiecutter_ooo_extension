@@ -2,8 +2,7 @@
 <oor:component-schema oor:name="ExtensionData"
                       oor:package="{{cookiecutter.package_name}}" xml:lang="en-US"
                       xmlns:oor="http://openoffice.org/2001/registry"
-                      xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                      xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <templates>
         <group oor:name="Production">
             <info>
