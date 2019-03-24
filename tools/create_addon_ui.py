@@ -1,19 +1,22 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
+import logging.config
 import logging
 import xml.etree.ElementTree as ET
 from _elementtree import Element
-from helper import (ElemPropStr,
-                    ElemPropLoc)
+
+import yaml
+from helper import (create_str_prop,
+                    create_str_loc_prop)
 
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 extension_id = "com.pwd.myextension"
 package_name = "{{cookiecutter.extension_name}}"
 xml_file = "AddonUI.xcu"  # To be adjusted in the right location
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("Now, it's time to create the %s file!" % xml_file)
+
+logger = logging.getLogger(__name__)
 
 
 class Function:
@@ -57,11 +60,10 @@ class MenuEntry(Element):
         name = self.format_name(i)
         attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.append(ElemPropStr("Context", "com.sun.star.text.TextDocument"))
-        self.append(ElemPropLoc("Title", {'fr': func.label},
-                                {'oor:type': 'xs:string'}))
-        self.append(ElemPropStr("URL", func.location))
-        self.append(ElemPropStr("Target", "_self"))
+        self.append(create_str_prop("Context", "com.sun.star.text.TextDocument"))
+        self.append(create_str_loc_prop("Title", {'fr': func.label}))
+        self.append(create_str_prop("URL", func.location))
+        self.append(create_str_prop("Target", "_self"))
 
     @staticmethod
     def format_name(i):
@@ -74,14 +76,14 @@ class MenuBar(Element):
     """
 
     def __init__(self):
+        logger.debug('Adding a Menubar')
         attrib = {"oor:name": "{{cookiecutter.package_name}}",
                   "oor:op": "replace"}
         node = "node"
         super().__init__(node, attrib)
-        self.append(ElemPropStr("Context"))
-        self.append(ElemPropLoc("Title",
-                                {'fr': "{{cookiecutter.company_name}}"},
-                                {'oor:type': 'xs:string'}))
+        self.append(create_str_prop("Context"))
+        self.append(create_str_loc_prop(
+            "Title", {'fr': "{{cookiecutter.company_name}}"}))
         submenu = ET.SubElement(self, "node", {"oor:name": "Submenu"})
         for i, func in enumerate(my_func, start=1):
             submenu.append(MenuEntry(i, func))
@@ -93,6 +95,7 @@ class ToolBar(Element):
     """
 
     def __init__(self):
+        logger.debug('Adding a Toolbar')
         attrib = {"oor:name": "{{cookiecutter.package_name}}.TB1",
                   "oor:op": "replace"}
         node = "node"
@@ -112,10 +115,10 @@ class Image(Element):
         name = "{{cookiecutter.package_name}}.%s" % MenuEntry.format_name(i)
         attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.append(ElemPropStr("URL", func.location))
+        self.append(create_str_prop("URL", func.location))
         nod = ET.SubElement(self, "node", {"oor:name": "UserDefinedImages"})
         icon_location = "%origin%/icons/{}".format(func.icon)
-        nod.append(ElemPropStr("ImageSmallURL", icon_location))
+        nod.append(create_str_prop("ImageSmallURL", icon_location))
 
 
 def create_addon():
@@ -123,7 +126,7 @@ def create_addon():
     Creation of OptionsDialog.xcu
     """
     path = os.path.dirname(os.path.realpath(__file__))
-    logger.info("Creating xcu in: %s" % path)
+    logger.debug("We create %s in: %s", xml_file, path)
 
     root = Element("oor:component-data",
                    {"xmlns:oor": "http://openoffice.org/2001/registry",
@@ -133,15 +136,13 @@ def create_addon():
 
     with open(xml_file, "w", encoding="UTF-8") as f:
         addon_ui = ET.SubElement(root, "node", {"oor:name": "AddonUI"})
-
-        menubar = ET.SubElement(addon_ui, "node",
-                                {"oor:name": "OfficeMenuBar"})
-        menubar.append(MenuBar())
-
-        toolbar = ET.SubElement(addon_ui, "node",
-                                {"oor:name": "OfficeToolBar"})
-        toolbar.append(ToolBar())
-
+        # Menubar
+        mb = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeMenuBar"})
+        mb.append(MenuBar())
+        # Toolbar
+        tb = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeToolBar"})
+        tb.append(ToolBar())
+        # Images
         images = ET.SubElement(addon_ui, "node", {"oor:name": "Images"})
         for i, func in enumerate(my_func, start=1):
             images.append(Image(i, func))
@@ -149,8 +150,11 @@ def create_addon():
         tree = ET.ElementTree(root)
         tree.write(f.name, "utf-8", True)
 
-    logger.info("%s has been created. Thanks for support !" % xml_file)
-
 
 if __name__ == "__main__":
+    with open('logging_conf.yaml', 'r') as f:
+        log_cfg = yaml.safe_load(f.read())
+        logging.config.dictConfig(log_cfg)
+    logger.debug("Well, it's time to create `%s`.", xml_file)
     create_addon()
+    logger.info("%s has been created.", xml_file)

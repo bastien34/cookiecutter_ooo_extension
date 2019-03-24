@@ -33,22 +33,17 @@ class ElemProp(Element):
         self.append(Elem("value", text=txt))
 
 
-class ElemPropStr(ElemProp):
-    """
-    Helper class. Force {'oor:type': 'xs:string'}
-    """
-    def __init__(self, name, txt='', attrib={}):
-        attrib.update({'oor:type': 'xs:string'})
-        super().__init__(name, txt, attrib)
+def create_str_prop(name, txt='', attrib={}):
+    attrib.update({'oor:type': 'xs:string'})
+    return ElemProp(name, txt, attrib)
 
 
-class ElemPropLoc(Elem):
-    """
-    Helper to build node <prop> with a nested <value> containing
-    text and locale information.
-    """
-    def __init__(self, name, langs, attrib={}):
-        attrib.update({'oor:name': name})
-        super().__init__('prop', attrib)
-        for lang, value in langs.items():
-            self.append(Elem("value", {"xml:lang": lang}, text=value))
+def create_str_loc_prop(name, langs, attrib={}):
+    """build node <prop> with a child <value> containing
+    text and locale information."""
+    attrib.update({'oor:type': 'xs:string',
+                   'oor:name': name})
+    el = Elem('prop', attrib)
+    for lang, value in langs.items():
+        el.append(Elem("value", {"xml:lang": lang}, text=value))
+    return el
