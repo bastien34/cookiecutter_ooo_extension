@@ -11,7 +11,7 @@ from helper import (ElemProp, Elem)
 
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 extension_id = "com.pwd.myextension"
-package_name = "{{cookiecutter.package_name}}"
+package_name = "../tmp/{{cookiecutter.package_name}}"
 xml_file = f"{package_name}_config.xcs"  # To be adjusted in the right location
 locale = {"xml:lang": "fr"}
 
@@ -23,6 +23,7 @@ def create_config_xcs():
     Creation of OptionsDialog.xcu
     """
     path = os.path.dirname(os.path.realpath(__file__))
+    logger.debug('Start creating %s.', xml_file)
     logger.debug("Creating xcs in: %s", path)
 
     root = Element("oor:component-schema",
@@ -57,12 +58,11 @@ def create_config_xcs():
 
         tree = ET.ElementTree(root)
         tree.write(f.name, "utf-8", True)
+    logger.info("%s has been created.", xml_file)
 
 
 if __name__ == "__main__":
     with open('logging_conf.yaml', 'r') as f:
         log_cfg = yaml.safe_load(f.read())
         logging.config.dictConfig(log_cfg)
-    logger.debug('Start creating %s.', xml_file)
     create_config_xcs()
-    logger.info("%s has been created.", xml_file)

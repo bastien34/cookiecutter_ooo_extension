@@ -13,7 +13,7 @@ from helper import (create_str_prop,
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 extension_id = "com.pwd.myextension"
 package_name = "{{cookiecutter.extension_name}}"
-xml_file = "AddonUI.xcu"  # To be adjusted in the right location
+xml_file = "../tmp/AddonUI.xcu"  # To be adjusted in the right location
 
 
 logger = logging.getLogger(__name__)
@@ -125,6 +125,7 @@ def create_addon():
     """
     Creation of OptionsDialog.xcu
     """
+    logger.debug("Well, it's time to create `%s`.", xml_file)
     path = os.path.dirname(os.path.realpath(__file__))
     logger.debug("We create %s in: %s", xml_file, path)
 
@@ -149,12 +150,11 @@ def create_addon():
 
         tree = ET.ElementTree(root)
         tree.write(f.name, "utf-8", True)
+    logger.info("%s has been created.", xml_file)
 
 
 if __name__ == "__main__":
     with open('logging_conf.yaml', 'r') as f:
         log_cfg = yaml.safe_load(f.read())
         logging.config.dictConfig(log_cfg)
-    logger.debug("Well, it's time to create `%s`.", xml_file)
     create_addon()
-    logger.info("%s has been created.", xml_file)
