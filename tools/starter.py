@@ -2,8 +2,16 @@
 # -*- coding: utf-8 -*-
 import logging.config
 import yaml
-from create_addon_ui import create_addon
-from create_config_xcs import create_config_xcs
+from create_addon_ui import (create_addon,
+                             test_functions)
+from create_config_xcs import (create_config_xcs,
+                               test_values)
+from create_dialog import create_dialog
+
+
+"""
+This starter needs a Environ.
+"""
 
 
 if __name__ == "__main__":
@@ -11,7 +19,8 @@ if __name__ == "__main__":
         log_cfg = yaml.safe_load(f.read())
         logging.config.dictConfig(log_cfg)
         logger = logging.getLogger(__name__)
-    logger.info('Start job')
-    create_addon()
-    create_config_xcs()
-    logger.info('Job finished')
+    logger.info('Start building configuration')
+    create_addon(test_functions)
+    create_config_xcs(test_values)
+    create_dialog(test_values)
+    logger.info('Configuration completed. Yeah!')

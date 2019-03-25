@@ -10,11 +10,13 @@ import yaml
 from helper import (create_str_prop,
                     create_str_loc_prop)
 
+# General
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
-extension_id = "com.pwd.myextension"
 package_name = "{{cookiecutter.extension_name}}"
-xml_file = "../tmp/AddonUI.xcu"  # To be adjusted in the right location
 
+# file_location = "../tmp/"  # dev
+file_location = "../{{cookiecutter.extension_name}}/src/"
+xml_file = "AddonUI.xcu"
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +25,8 @@ class Function:
     """
     Define a function.
 
-    Warning: Location has an ampersand "&" that must be converted as "&amp;"
-    into the xml file.
+    Warning: Location attribute contains an ampersand "&" that must
+    be converted as "&amp;" in xml file.
     """
 
     def __init__(self, name, label, icon):
@@ -39,14 +41,12 @@ class Function:
             f"uno_packages"
 
 
-# Test values: these data should be collected from odt file.
+# Test values:
 func1 = Function('{{cookiecutter.extension_name}}_launcher',
                  '{{cookiecutter.extension_label}}',
                  'bal_16.png')
 func2 = Function('send_letter', 'Send Nice Letter', 'send_letter.png')
-
-# my_func will contain data from odt file about commands to add in menu
-my_func = [func1, ]
+test_functions = [func1, func2]
 
 
 class MenuEntry(Element):
@@ -60,7 +60,8 @@ class MenuEntry(Element):
         name = self.format_name(i)
         attrib = {"oor:name": name, "oor:op": "replace"}
         super().__init__(tag, attrib)
-        self.append(create_str_prop("Context", "com.sun.star.text.TextDocument"))
+        self.append(
+            create_str_prop("Context", "com.sun.star.text.TextDocument"))
         self.append(create_str_loc_prop("Title", {'fr': func.label}))
         self.append(create_str_prop("URL", func.location))
         self.append(create_str_prop("Target", "_self"))
@@ -75,7 +76,7 @@ class MenuBar(Element):
     Build the Menubar for all functions listed in my_func.
     """
 
-    def __init__(self):
+    def __init__(self, funcs):
         logger.debug('Adding a Menubar')
         attrib = {"oor:name": "{{cookiecutter.package_name}}",
                   "oor:op": "replace"}
@@ -85,7 +86,7 @@ class MenuBar(Element):
         self.append(create_str_loc_prop(
             "Title", {'fr': "{{cookiecutter.company_name}}"}))
         submenu = ET.SubElement(self, "node", {"oor:name": "Submenu"})
-        for i, func in enumerate(my_func, start=1):
+        for i, func in enumerate(funcs, start=1):
             submenu.append(MenuEntry(i, func))
 
 
@@ -94,13 +95,13 @@ class ToolBar(Element):
     Build the Toolbar for all functions listed my_func.
     """
 
-    def __init__(self):
+    def __init__(self, funcs):
         logger.debug('Adding a Toolbar')
         attrib = {"oor:name": "{{cookiecutter.package_name}}.TB1",
                   "oor:op": "replace"}
         node = "node"
         super().__init__(node, attrib)
-        for i, func in enumerate(my_func, start=1):
+        for i, func in enumerate(funcs, start=1):
             self.append(MenuEntry(i, func))
 
 
@@ -121,13 +122,16 @@ class Image(Element):
         nod.append(create_str_prop("ImageSmallURL", icon_location))
 
 
-def create_addon():
+def create_addon(funcs):
     """
-    Creation of OptionsDialog.xcu
+    Creation of AddonUI.xcu which contains Toolbar and Menubar
+    configuration.
     """
-    logger.debug("Well, it's time to create `%s`.", xml_file)
+    logger.debug('Start creating %s.', xml_file)
+
     path = os.path.dirname(os.path.realpath(__file__))
-    logger.debug("We create %s in: %s", xml_file, path)
+    path_file = os.path.join(file_location, xml_file)
+    path_file = os.path.join(path, path_file)
 
     root = Element("oor:component-data",
                    {"xmlns:oor": "http://openoffice.org/2001/registry",
@@ -135,26 +139,27 @@ def create_addon():
                     "oor:name": "Addons",
                     "oor:package": "org.openoffice.Office"})
 
-    with open(xml_file, "w", encoding="UTF-8") as f:
+    with open(path_file, "w", encoding="UTF-8") as xf:
         addon_ui = ET.SubElement(root, "node", {"oor:name": "AddonUI"})
         # Menubar
         mb = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeMenuBar"})
-        mb.append(MenuBar())
+        mb.append(MenuBar(funcs))
         # Toolbar
         tb = ET.SubElement(addon_ui, "node", {"oor:name": "OfficeToolBar"})
-        tb.append(ToolBar())
+        tb.append(ToolBar(funcs))
         # Images
         images = ET.SubElement(addon_ui, "node", {"oor:name": "Images"})
-        for i, func in enumerate(my_func, start=1):
+        for i, func in enumerate(funcs, start=1):
             images.append(Image(i, func))
 
         tree = ET.ElementTree(root)
-        tree.write(f.name, "utf-8", True)
-    logger.info("%s has been created.", xml_file)
+        tree.write(xf.name, "utf-8", True)
+
+    logger.info("%s created in -> %s", xml_file, file_location)
 
 
 if __name__ == "__main__":
     with open('logging_conf.yaml', 'r') as f:
         log_cfg = yaml.safe_load(f.read())
         logging.config.dictConfig(log_cfg)
-    create_addon()
+    create_addon(test_functions)
