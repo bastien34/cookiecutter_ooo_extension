@@ -46,10 +46,10 @@ def test_launcher(*args):
     extra_context = {}
     [extra_context.update({r[0]: r[1]}) for r in description_data]
 
-    # Before generating the project, we must create our config files.
+    # TODO: Before generating the project, we must create our config files.
 
     cookiecutter('cookiecutter-django', no_input=True,
-                 extra_context={},
+                 extra_context=extra_context,
                  output_dir=output_dir
                  )
 
