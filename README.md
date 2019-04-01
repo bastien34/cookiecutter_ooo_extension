@@ -17,7 +17,7 @@ forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
 First, get Cookiecutter. Trust me, it's awesome!
 
-    $ pip install --user "cookiecutter>=1.4.0"
+    $ pip3 install --user "cookiecutter>=1.4.0"
 
 Now install **ExtensionGenerator.odt**. This will add a toolbar and a menu with 
 **Create a new extension** entry. This function trigger a file with very simple
