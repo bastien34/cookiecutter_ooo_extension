@@ -14,7 +14,7 @@ extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_v
 
 # file_location = "../tmp/"  # dev
 file_location = "../{{cookiecutter.extension_name}}/src/config"
-xml_file = "{{cookiecutter.package_name}}_config.xcs"
+xml_file = "{{cookiecutter.extension_name}}_config.xcs"
 locale = {"xml:lang": "fr"}
 
 logger = logging.getLogger(__name__)
@@ -30,10 +30,10 @@ class Var:
 
 # Test values
 v1 = Var('test_mode', 'Activate test mode', 'boolean', 'true')
-v2 = Var('token', 'Token', 'string', 'A valid token')
+v2 = Var('output_dir', 'Output', 'string', os.environ['HOME'])
 v3 = Var('url', 'URL', 'string', 'https://my_website.com/')
 
-test_values = v1, v2, v3
+test_values = v2, v3
 
 
 def create_config_xcs(option_vars):
@@ -47,7 +47,6 @@ def create_config_xcs(option_vars):
     """
     path = os.path.dirname(os.path.realpath(__file__))
     logger.debug('Start creating %s.', xml_file)
-    # logger.debug("Creating xcs in: %s", path)
 
     path_file = os.path.join(file_location, xml_file)
     path_file = os.path.join(path, path_file)
@@ -68,10 +67,11 @@ def create_config_xcs(option_vars):
 
         # Iteration on options list
         for ov in option_vars:
+            vtype = f'xs:{ov.vtype}'
             ET.SubElement(group, 'prop', {'oor:name': ov.name,
-                                          'oor:type': ov.vtype})
+                                          'oor:type': vtype})
             defaults.append(ElemProp(ov.name, ov.default,
-                                     {'oor:type': 'xs:%s' % ov.vtype}))
+                                     {'oor:type': vtype}))
 
         # Component
         cmp = ET.SubElement(root, 'component')
