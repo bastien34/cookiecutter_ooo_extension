@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 from _elementtree import Element
 
 import yaml
-from helper import (create_str_prop,
-                    create_str_loc_prop)
+from helpers import (create_str_prop,
+                     create_str_loc_prop)
 
 # General
 extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"

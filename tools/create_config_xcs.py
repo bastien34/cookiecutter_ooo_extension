@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from _elementtree import Element
 
 import yaml
-from helper import (ElemProp, Elem)
+from helpers import (ElemProp, Elem)
 
 
 # General

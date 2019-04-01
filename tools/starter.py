@@ -51,8 +51,7 @@ def test_launcher(*args):
 
     cookiecutter('cookiecutter-django', no_input=True,
                  extra_context=extra_context,
-                 output_dir=output_dir
-                 )
+                 output_dir=output_dir)
 
 
 if __name__ == "__main__":
