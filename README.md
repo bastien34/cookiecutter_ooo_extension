@@ -2,12 +2,12 @@ OOo Extension with Options Dialog in 1 minute only
 ==================================================
 
 ## Features
-Create a starter boilerplate for an OOo extension including options dialog in 
+Create a starter boilerplate to develop a python OOo extension including options dialog in 
 1 minute.
 
-Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
+This tool works within an installation.
 
-Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
+Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
 ## Usage
 Let's pretend you want to create an extension including options feature called 
@@ -17,17 +17,30 @@ forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
 First, get Cookiecutter. Trust me, it's awesome!
 
-    $ pip install "cookiecutter>=1.4.0"
+    $ pip install --user "cookiecutter>=1.4.0"
 
-Now run it against this repo:
+Now install **ExtensionGenerator.odt**. This will add a toolbar and a menu with 
+**Create a new extension** entry. This function trigger a file with very simple
+tables to help you configuring you extension.
 
-    $ cookiecutter git@github.com:bastien34/cookiecutter_ooo_extension.git
+Configure the output path for your new extension. By default, it's your **/home/$USER/**.
 
-You'll be prompted for some values. Provide them, then a base project will be 
-created for you. You can **replay the project generation** without being prompted 
-on the command line. Use the `--replay` option:
+Once your tables are fulfilled, simply click on the button "Generate your extension".
+It will generate the extension and a **src/** directory in the directory you setup
+as output.
 
-    $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
+```
+├── my_extension
+│   ├── extension
+│   ├── src
+│   └── README.md
+```
+You can test the created extension right out of the box. It will contain option 
+dialog for the options defined in the generator, menubar and toobar.
+
+Start working in the src/ directory. Python code should be located 
+in `src/python/you_extension.py`.
+
 
 ### General Vars
 |Keys               | Default values                      | Note         |
@@ -45,27 +58,8 @@ on the command line. Use the `--replay` option:
 |image_name         | logo.png                            |PNG or JPG, 42x42 pixels
 
 
-## What you gonna have
-The result will be 2 dirs (`src/` and `extension`) and an executable that serves 
-you to generate from source a new extension each time you'll need it. 
-
-To generate a new extension, from root directory (`your_extension_name`):
-
-    $ ./oxt_gen.py
-    
-The brand new extension will be created in `extension/`. To install it:
-
-    $ unopkg add extension/<your_extension.oxt>
-    
-To remove it:
-
-    $ unopkg remove <your_extension.oxt>
-
-**Warning:** For now, as an example, we let options dialog for few settings (url, 
-token, path), a Menubar and a Toolbar linked to a launcher that open a simple 
-message box.
-
-That's it. Stupid and simple !
+### What you gonna have (in details)
+As said, 2 dirs (`src/` and `extension`) are created in the output directory. 
 
 #### Treeview of the project source
 
@@ -287,6 +281,8 @@ https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/File_Format
 
 
 ## Definitions from the specification document
+
+Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
 
 #### Node 
 
