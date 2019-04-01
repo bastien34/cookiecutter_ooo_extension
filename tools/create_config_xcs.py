@@ -33,7 +33,7 @@ v1 = Var('test_mode', 'Activate test mode', 'boolean', 'true')
 v2 = Var('output_dir', 'Output', 'string', os.environ['HOME'])
 v3 = Var('url', 'URL', 'string', 'https://my_website.com/')
 
-test_values = v2, v3
+test_values = v2,
 
 
 def create_config_xcs(option_vars):

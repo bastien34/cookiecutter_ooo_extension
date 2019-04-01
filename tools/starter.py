@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import os
 import logging.config
 import yaml
 from cookiecutter.main import cookiecutter
@@ -23,7 +24,7 @@ EXTENSION_DESCRIPTION = (
     'publisher_url',
     'image_name',
 )
-output_dir = '/home/bastien/tmp'
+output_dir = os.environ['HOME']  # to be changed
 repo = "https://github.com/bastien34/cookiecutter_ooo_extension"
 
 

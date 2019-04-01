@@ -46,7 +46,7 @@ func1 = Function('{{cookiecutter.extension_name}}_launcher',
                  '{{cookiecutter.extension_label}}',
                  'bal_16.png')
 func2 = Function('send_letter', 'Send Nice Letter', 'send_letter.png')
-test_functions = [func1, func2]
+test_functions = [func1, ]
 
 
 class MenuEntry(Element):
