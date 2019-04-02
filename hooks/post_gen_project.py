@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import shutil
+
 import yaml
 import os
 import xml.etree.ElementTree as ET
@@ -115,7 +117,7 @@ def create_dialog(option_vars):
     logger.info("%s created in -> %s", dialog_file, dialog_location)
 
 
-# ------------------------------ AddonUI creation  -----------------------------
+# ------------------------------ AddonUI creation  ----------------------------
 
 
 class Function:
@@ -295,7 +297,7 @@ def create_addon(funcs):
     logger.debug("AddonUI created in -> %s", path_file)
 
 
-# ---------------------------- CONFIX.XCS creation  ----------------------------
+# ---------------------------- CONFIX.XCS creation  ---------------------------
 
 def create_config_xcs(option_vars):
     """
@@ -354,4 +356,18 @@ def finalize():
     create_addon(fs)
 
 
+def zip_files():
+    logger.info(
+        'Zipping file to {{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt')
+    extension_path = 'extension/'
+    oxt = os.path.join(
+        extension_path,
+        "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
+    )
+    shutil.make_archive(oxt, 'zip', 'src/')
+    os.rename(oxt + '.zip', oxt)
+
+
 finalize()
+
+zip_files()
