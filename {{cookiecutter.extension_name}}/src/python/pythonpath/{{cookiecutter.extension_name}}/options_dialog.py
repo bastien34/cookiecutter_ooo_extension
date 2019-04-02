@@ -20,7 +20,7 @@ from {{cookiecutter.extension_name}}_utils import (
     getConfigurationAccess,
 )
 
-DIALOG_ID = '{{cookiecutter.extension_name}}_dialog'
+DIALOG_ID = "{{cookiecutter.extension_name}}_dialog"
 NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.extension_name}}"
 
 KEYS = ("test_mode",

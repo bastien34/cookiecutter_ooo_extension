@@ -9,5 +9,7 @@
   "update_url": "",
   "release_note_url": "",
   "publisher_url": "https://palaceweb.fr",
-  "image_name": "logo.png"
+  "image_name": "logo.png",
+  "vars": {},
+  "funcs": {}
 }
