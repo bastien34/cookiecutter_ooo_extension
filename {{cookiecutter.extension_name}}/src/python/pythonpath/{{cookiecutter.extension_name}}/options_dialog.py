@@ -23,14 +23,7 @@ from {{cookiecutter.extension_name}}_utils import (
 DIALOG_ID = "{{cookiecutter.extension_name}}_dialog"
 NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.extension_name}}"
 
-KEYS = ("test_mode",
-        "token",
-        "prestation_path",
-        "url",
-        "dev_token",
-        "prestation_dev_path",
-        "dev_url",
-        )
+KEYS = ("{{cookiecutter.vars|join('", "')}}")
 
 
 def create(ctx, implementation_name, service_name, *args):
