@@ -7,39 +7,15 @@ Create a starter boilerplate to develop a python OOo extension including options
 
 This tool works within an installation.
 
+Work is still in progress. It should be used with this [tool](https://github.com/bastien34/mastering_cookiecutter_OOo_extension).
+
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
+Options dialog Specification can be found [here](https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog).
+
 ## Usage
-Let's pretend you want to create an extension including options feature called 
-"fantastic_extension". Rather than copying an old project and then editing it 
-to include your numerous settings among which some of them always get 
-forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
-First, get Cookiecutter. Trust me, it's awesome!
-
-    $ pip3 install --user "cookiecutter>=1.4.0"
-
-Now install **ExtensionGenerator.odt**. This will add a toolbar and a menu with 
-**Create a new extension** entry. This function trigger a file with very simple
-tables to help you configuring you extension.
-
-Configure the output path for your new extension. By default, it's your **/home/$USER/**.
-
-Once your tables are fulfilled, simply click on the button "Generate your extension".
-It will generate the extension and a **src/** directory in the directory you setup
-as output.
-
-```
-├── my_extension
-│   ├── extension
-│   ├── src
-│   └── README.md
-```
-You can test the created extension right out of the box. It will contain option 
-dialog for the options defined in the generator, menubar and toobar.
-
-Start working in the src/ directory. Python code should be located 
-in `src/python/you_extension.py`.
+This repo is not intended to be used directly. Please use instead [mastering_cookiecutter_OOo_extension](https://github.com/bastien34/mastering_cookiecutter_OOo_extension) !
 
 
 ### General Vars
