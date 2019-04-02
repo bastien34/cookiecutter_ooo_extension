@@ -2,19 +2,20 @@ OOo Extension with Options Dialog in 1 minute only
 ==================================================
 
 ## Features
-Create a starter boilerplate for an OOo extension including options dialog in 
+Create a starter boilerplate to develop a python OOo extension including options dialog in 
 1 minute.
+
+This tool works within an installation.
 
 Work is still in progress. It should be used with this [tool](https://github.com/bastien34/mastering_cookiecutter_OOo_extension).
 
-
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
-Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
+Options dialog Specification can be found [here](https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog).
 
 ## Usage
 
-It shouldn't be used directly but with the help of **mastering_cookiecutter_OOo_extension** !
+This repo is not intended to be used directly. Please use instead [mastering_cookiecutter_OOo_extension](https://github.com/bastien34/mastering_cookiecutter_OOo_extension) !
 
 
 ### General Vars
@@ -33,27 +34,8 @@ It shouldn't be used directly but with the help of **mastering_cookiecutter_OOo_
 |image_name         | logo.png                            |PNG or JPG, 42x42 pixels
 
 
-## What you gonna have
-The result will be 2 dirs (`src/` and `extension`) and an executable that serves 
-you to generate from source a new extension each time you'll need it. 
-
-To generate a new extension, from root directory (`your_extension_name`):
-
-    $ ./oxt_gen.py
-    
-The brand new extension will be created in `extension/`. To install it:
-
-    $ unopkg add extension/<your_extension.oxt>
-    
-To remove it:
-
-    $ unopkg remove <your_extension.oxt>
-
-**Warning:** For now, as an example, we let options dialog for few settings (url, 
-token, path), a Menubar and a Toolbar linked to a launcher that open a simple 
-message box.
-
-That's it. Stupid and simple !
+### What you gonna have (in details)
+As said, 2 dirs (`src/` and `extension`) are created in the output directory. 
 
 #### Treeview of the project source
 
@@ -275,6 +257,8 @@ https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/File_Format
 
 
 ## Definitions from the specification document
+
+Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
 
 #### Node 
 

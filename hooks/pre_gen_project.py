@@ -2,25 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import os
-import re
-import sys
+
+# TODO: assure that name vars or functions are no capitalized and without blank
+#  space.
+# TODO: module.py : adapt environ and starter feature
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('pre_gen_project')
 
-PKG_REGEX = r'^([a-z]+:)*[a-z]+$'
 
+def prepare_pkg():
+    pass
 
-def create_pkg(pkg):
-    # if not re.match(PKG_REGEX, pkg):
-    #     logger.error('Invalid value for package_name "{}"'.format(pkg))
-    #     sys.exit(1)
-    #
-    # pkg_dir = re.sub(':', '/', pkg)
-    #
-    # logger.info('Create package structure "{}"'.format(pkg_dir))
-    # os.makedirs(pkg_dir)
-    print(pkg)
-
-create_pkg('{{cookiecutter.package_name}}')
+prepare_pkg()

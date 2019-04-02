@@ -20,17 +20,10 @@ from {{cookiecutter.extension_name}}_utils import (
     getConfigurationAccess,
 )
 
-DIALOG_ID = '{{cookiecutter.extension_name}}_dialog'
+DIALOG_ID = "{{cookiecutter.extension_name}}_dialog"
 NODE = "{{cookiecutter.package_name}}.ExtensionData/Leaves/{{cookiecutter.extension_name}}"
 
-KEYS = ("test_mode",
-        "token",
-        "prestation_path",
-        "url",
-        "dev_token",
-        "prestation_dev_path",
-        "dev_url",
-        )
+KEYS = ("{{cookiecutter.vars|join('", "')}}")
 
 
 def create(ctx, implementation_name, service_name, *args):
@@ -54,34 +47,6 @@ def localization():
                             localedir=locale_dir,
                             languages=[lang])
     t.install()
-
-
-class ButtonListener(unohelper.Base, XActionListener):
-    """Button listener"""
-    def __init__(self, cast):
-        self.cast = cast
-
-    def disposing(self, ev):
-        pass
-
-    def actionPerformed(self, ev):
-        cmd = str(ev.ActionCommand)
-        if cmd == "selectPath":
-            try:
-                ret = self.cast.chooseFile()
-                if ret:
-                    path = uno.fileUrlToSystemPath(ret)
-                    ev.Source.getContext().getControl("prestation_path").setText(path)
-            except:
-                traceback.print_exc()
-        if cmd == "selectDevPath":
-            try:
-                ret = self.cast.chooseFile()
-                if ret:
-                    path = uno.fileUrlToSystemPath(ret)
-                    ev.Source.getContext().getControl("prestation_dev_path").setText(path)
-            except:
-                traceback.print_exc()
 
 
 class DialogBase(object):
@@ -163,7 +128,6 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
 
         if event_name == 'initialize':
             settings = self._config_reader()
-            self._add_button_listener(dialog)
 
             for name in self.cfg_names:
                 ctrl = dialog.getControl(name)
@@ -171,17 +135,6 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
                     ctrl.setState(settings[name])
                 elif ctrl.supportsService("com.sun.star.awt.UnoControlEdit"):
                     ctrl.setText(settings[name])
-
-    def _add_button_listener(self, dialog):
-        listener = ButtonListener(self)
-        btn = dialog.getControl("btn_select_path")
-        btn.ActionCommand = "selectPath"
-        btn.addActionListener(listener)
-
-        listener = ButtonListener(self)
-        btn = dialog.getControl("btn_select_dev_path")
-        btn.ActionCommand = "selectDevPath"
-        btn.addActionListener(listener)
 
     def _config_reader(self):
         settings = {}
@@ -213,10 +166,3 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
     def getSupportedServiceNames(self):
         return (SERVICE_NAME,)
 
-    def chooseFile(self):
-        ret = self._get_file_url()
-        return ret
-
-    def _get_file_url(self):
-        url = FolderOpenDialog(self.ctx).execute()
-        return url or False
