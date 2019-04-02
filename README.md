@@ -5,29 +5,17 @@ OOo Extension with Options Dialog in 1 minute only
 Create a starter boilerplate for an OOo extension including options dialog in 
 1 minute.
 
+Work is still in progress. It should be used with this [tool](https://github.com/bastien34/mastering_cookiecutter_OOo_extension).
+
+
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter).
 
 Options dialog Specification can be found at: https://wiki.openoffice.org/wiki/Documentation/DevGuide/Extensions/Options_Dialog
 
 ## Usage
-Let's pretend you want to create an extension including options feature called 
-"fantastic_extension". Rather than copying an old project and then editing it 
-to include your numerous settings among which some of them always get 
-forgotten until the worst possible moment, get cookiecutter_ to do all the work.
 
-First, get Cookiecutter. Trust me, it's awesome!
+It shouldn't be used directly but with the help of **mastering_cookiecutter_OOo_extension** !
 
-    $ pip install "cookiecutter>=1.4.0"
-
-Now run it against this repo:
-
-    $ cookiecutter git@github.com:bastien34/cookiecutter_ooo_extension.git
-
-You'll be prompted for some values. Provide them, then a base project will be 
-created for you. You can **replay the project generation** without being prompted 
-on the command line. Use the `--replay` option:
-
-    $ cookiecutter --replay git@github.com:bastien34/cookiecutter_ooo_extension.git
 
 ### General Vars
 |Keys               | Default values                      | Note         |
