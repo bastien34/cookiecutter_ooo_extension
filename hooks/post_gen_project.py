@@ -353,6 +353,8 @@ def finalize():
     fs = []
     for f in funcs.values():
         fs.append(Function(*f.values()))
+        # force demo entry
+    fs.append(Function("{{cookiecutter.extension_name}}_launcher", 'Demo', 'bal_16.png'))
     create_addon(fs)
 
 

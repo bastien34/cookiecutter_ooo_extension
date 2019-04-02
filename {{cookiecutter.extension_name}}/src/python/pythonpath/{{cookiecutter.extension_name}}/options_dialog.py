@@ -49,34 +49,6 @@ def localization():
     t.install()
 
 
-class ButtonListener(unohelper.Base, XActionListener):
-    """Button listener"""
-    def __init__(self, cast):
-        self.cast = cast
-
-    def disposing(self, ev):
-        pass
-
-    def actionPerformed(self, ev):
-        cmd = str(ev.ActionCommand)
-        if cmd == "selectPath":
-            try:
-                ret = self.cast.chooseFile()
-                if ret:
-                    path = uno.fileUrlToSystemPath(ret)
-                    ev.Source.getContext().getControl("prestation_path").setText(path)
-            except:
-                traceback.print_exc()
-        if cmd == "selectDevPath":
-            try:
-                ret = self.cast.chooseFile()
-                if ret:
-                    path = uno.fileUrlToSystemPath(ret)
-                    ev.Source.getContext().getControl("prestation_dev_path").setText(path)
-            except:
-                traceback.print_exc()
-
-
 class DialogBase(object):
     """ Base class for dialog. """
     def __init__(self, ctx):
@@ -156,7 +128,6 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
 
         if event_name == 'initialize':
             settings = self._config_reader()
-            self._add_button_listener(dialog)
 
             for name in self.cfg_names:
                 ctrl = dialog.getControl(name)
@@ -164,17 +135,6 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
                     ctrl.setState(settings[name])
                 elif ctrl.supportsService("com.sun.star.awt.UnoControlEdit"):
                     ctrl.setText(settings[name])
-
-    def _add_button_listener(self, dialog):
-        listener = ButtonListener(self)
-        btn = dialog.getControl("btn_select_path")
-        btn.ActionCommand = "selectPath"
-        btn.addActionListener(listener)
-
-        listener = ButtonListener(self)
-        btn = dialog.getControl("btn_select_dev_path")
-        btn.ActionCommand = "selectDevPath"
-        btn.addActionListener(listener)
 
     def _config_reader(self):
         settings = {}
@@ -206,10 +166,3 @@ class DialogHandler(unohelper.Base, XServiceInfo, XContainerWindowEventHandler):
     def getSupportedServiceNames(self):
         return (SERVICE_NAME,)
 
-    def chooseFile(self):
-        ret = self._get_file_url()
-        return ret
-
-    def _get_file_url(self):
-        url = FolderOpenDialog(self.ctx).execute()
-        return url or False
