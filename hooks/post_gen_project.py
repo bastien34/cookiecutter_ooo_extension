@@ -10,17 +10,19 @@ import xml.etree.ElementTree as ET
 from _elementtree import Element
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("post_get_project")
 
 # General
-extension_filename = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
+EXTENSION_FILENAME = "{{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt"
 MODULE = "{{cookiecutter.extension_name}}"
-dialog_location = "../{{cookiecutter.extension_name}}/src/dialogs"
-dialog_file = "{{cookiecutter.extension_name}}_dialog.xdl"
+DIALOG_LOCATION = "../{{cookiecutter.extension_name}}/src/dialogs"
+DIALOG_FILE = "{{cookiecutter.extension_name}}_dialog.xdl"
 ADDONUI_LOCATION = "../{{cookiecutter.extension_name}}/src/"
 ADDONUI_FILE = "AddonUI.xcu"
 CONFIG_LOCATION = "../{{cookiecutter.extension_name}}/src/config"
 CONFIG_FILE = "{{cookiecutter.extension_name}}_config.xcs"
+ICON_LOCATION = "../{{cookiecutter.extension_name}}/src/icons"
+IMAGE_LOCATION = "../{{cookiecutter.extension_name}}/src/images"
 
 
 # --------------------------- Dialog window creation  -------------------------
@@ -74,7 +76,7 @@ def create_dialog(option_vars):
     values.
     Its parameter is a list of Var Instance.
     """
-    path_file = os.path.join(dialog_location, dialog_file)
+    path_file = os.path.join(DIALOG_LOCATION, DIALOG_FILE)
     logger.debug('Start creating %s.', path_file)
 
     root = ET.Element('dlg:window', {
@@ -93,19 +95,21 @@ def create_dialog(option_vars):
     top = 10
     for i, d in enumerate(option_vars.values(), start=1):
         top += 20
-
+        vtype = d['type']
         # If var == boolean -> checkbox
-        if d['type'] == "boolean":
+        if vtype == "boolean":
             dg = CheckBox(top, d['name'], str(i), d['label'], d['default'])
             ET.SubElement(bul_inboard, 'dlg:checkbox', dg.dict)
 
         # If var == string, we split it in two: label and text_field
-        elif d['type'] == "string":
+        elif vtype == "string":
             label = Label(top, f"{d['name']}{i}", str(i + len(option_vars)),
                           d['label'])
             text_field = TextField(top, d['name'], i, d['default'])
             ET.SubElement(bul_inboard, 'dlg:text', label.dict)
             ET.SubElement(bul_inboard, 'dlg:textfield', text_field.dict)
+        else:
+            raise TypeFunctionNotSupportedError(vtype)
 
     with open(path_file, "w", encoding='UTF-8') as xf:
         doc_type = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE dlg:window ' \
@@ -114,7 +118,7 @@ def create_dialog(option_vars):
         file = f"{doc_type}{tostring}"
         xf.write(file)
 
-    logger.info("%s created in -> %s", dialog_file, dialog_location)
+    logger.info("%s created in -> %s", DIALOG_FILE, DIALOG_LOCATION)
 
 
 # ------------------------------ AddonUI creation  ----------------------------
@@ -134,7 +138,7 @@ class Function:
 
     @property
     def location(self):
-        return f"vnd.sun.star.script:{extension_filename}|python" \
+        return f"vnd.sun.star.script:{EXTENSION_FILENAME}|python" \
             f"|{MODULE}.py${self.name}?language=Python&location=user:" \
             f"uno_packages"
 
@@ -288,8 +292,8 @@ def create_addon(funcs):
         # Images
         images = ET.SubElement(addon_ui, "node", {"oor:name": "Images"})
         for i, func in enumerate(funcs, start=1):
-            logger.debug('je traite image %s', func.label)
             images.append(Image(i, func))
+            insert_image(func.icon, ICON_LOCATION)
 
         tree = ET.ElementTree(root)
         tree.write(xf.name, "utf-8", True)
@@ -344,6 +348,45 @@ def create_config_xcs(option_vars):
     logger.info("Config XCS created in -> %s", path_file)
 
 
+# ------------------------------ Exceptions -----------------------------------
+
+def insert_image(filename, new_fn):
+    logger.debug('Working Dir: %s', os.path.abspath(__file__))
+    if os.path.exists(filename):
+        os.rename(filename, new_fn)
+    else:
+        pass
+        # raise ImageNotFoundError(filename)
+
+
+class ImageNotFoundError(Exception):
+    """Raises if icon or extension image not found."""
+
+    def __init__(self, name):
+        logger.error('ImageNotFoundError: check filename <%s>', name)
+        self.message = f"Image <{name}> from your config not found in './'." \
+            "Check filename or put image next to Extension " \
+            "Generator!"
+
+    def __str__(self):
+        return str(self.message)
+
+
+class TypeFunctionNotSupportedError(Exception):
+    """Raises if icon or extension image not found."""
+
+    def __init__(self, vtype):
+        logger.error('Type <%s> not supported yet. Contribute!', vtype)
+        self.message = f"Sorry, the type <{vtype}> is not supported Yet. " \
+            f"You're welcome to contribute!"
+
+    def __str__(self):
+        return str(self.message)
+
+
+# -----------------------------------------------------------------------------
+
+
 def finalize():
     variables = yaml.load("{{cookiecutter.vars}}")
     create_dialog(variables)
@@ -356,10 +399,11 @@ def finalize():
         # force demo entry
     fs.append(Function("{{cookiecutter.extension_name}}_launcher", 'Demo', 'bal_16.png'))
     create_addon(fs)
+    return 1
 
 
 def zip_files():
-    logger.info(
+    logger.debug(
         'Zipping file to {{cookiecutter.extension_name}}-{{cookiecutter.extension_version}}.oxt')
     extension_path = 'extension/'
     oxt = os.path.join(
@@ -368,6 +412,9 @@ def zip_files():
     )
     shutil.make_archive(oxt, 'zip', 'src/')
     os.rename(oxt + '.zip', oxt)
+    logger.info("Extension <%s> ready to be installed. Thanks!",
+                EXTENSION_FILENAME)
+    return 1
 
 
 finalize()
