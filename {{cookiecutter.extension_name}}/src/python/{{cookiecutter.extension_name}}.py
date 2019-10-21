@@ -61,4 +61,4 @@ def {{cookiecutter.extension_name}}_launcher(*args):
 
 
 
-g_exportedScripts = {{cookiecutter.extension_name}}_launcher
+g_exportedScripts = {{cookiecutter.extension_name}}_launcher,

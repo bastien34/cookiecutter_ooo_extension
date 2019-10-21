@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import logging
@@ -397,7 +397,7 @@ def finalize():
     for f in funcs.values():
         fs.append(Function(*f.values()))
         # force demo entry
-    fs.append(Function("{{cookiecutter.extension_name}}_launcher", 'Demo', 'bal_16.png'))
+    # fs.append(Function("{{cookiecutter.extension_name}}_launcher", 'Demo', 'bal_16.png'))
     create_addon(fs)
     return 1
 
